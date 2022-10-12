@@ -138,7 +138,7 @@ def predict_raster_res(png_map_path, model, output_dir, pred_name, win_size, bat
                 continue
 
             pred_edge_map[row:row+256, col:col+256] = np.logical_or(edge_img, pred_edge_map[row:row+256, col:col+256])
-
+    pred_edge_map = (pred_edge_map*255).astype('uint8')
     ##### dilate the drawn polylines to conflate very close polylines into one
     kernel = np.ones((3,3), np.uint8)
     pred_dilate = cv2.dilate(pred_edge_map*255, kernel, iterations=2)
